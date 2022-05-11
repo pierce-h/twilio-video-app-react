@@ -22,7 +22,7 @@ const twilioClient = twilio(process.env.TWILIO_API_KEY_SID, process.env.TWILIO_A
 // NOTE - we probably dont need this!
 // app.all('/recordingrules', authMiddleware, recordingRulesEndpoint);
 
-const findOrCreateRoom = async roomName => {
+const findOrCreateRoom = async (roomName: string) => {
   try {
     // see if the room exists already. If it doesn't, this will throw
     // error 20404.
@@ -41,12 +41,12 @@ const findOrCreateRoom = async roomName => {
   }
 };
 
-const getAccessToken = roomName => {
+const getAccessToken = (roomName: string) => {
   // create an access token
   const token = new twilio.jwt.AccessToken(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_API_KEY_SID,
-    process.env.TWILIO_API_KEY_SECRET,
+    process.env.TWILIO_ACCOUNT_SID as string,
+    process.env.TWILIO_API_KEY_SID as string,
+    process.env.TWILIO_API_KEY_SECRET as string,
     // generate a random unique identity for this participant
     { identity: v4() }
   );
@@ -66,7 +66,7 @@ app.post('/token', async (req, res) => {
   if (!req.body || !req.body.room_name) {
     return res.status(400).send('Must include room_name argument.');
   }
-  const room_name = req.body.room_name;
+  const room_name = (req.body.room_name as unknown) as string;
   // find or create a room with the given room_name
   findOrCreateRoom(room_name);
   // generate an Access Token for a participant in this room
