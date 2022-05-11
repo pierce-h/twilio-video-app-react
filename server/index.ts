@@ -4,7 +4,7 @@ import express, { RequestHandler } from 'express';
 import path from 'path';
 import { ServerlessFunction } from './types';
 
-const PORT = process.env.PORT ?? 8081;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8081;
 
 const app = express();
 app.use(express.json());
@@ -45,4 +45,4 @@ app.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'), { etag: false, lastModified: false });
 });
 
-app.listen(PORT, () => console.log(`twilio-video-app-react server running on ${PORT}`));
+app.listen(PORT, () => console.log(`video-app server running on ${PORT}`));
