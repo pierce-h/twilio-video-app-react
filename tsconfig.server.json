@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "build-server",
+    "rootDir": "server",
+    "target": "es2019",
+    "isolatedModules": false,
+    "noEmit": false
+  },
+  "include": [
+    "server"
+  ]
+}
