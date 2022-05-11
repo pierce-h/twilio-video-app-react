@@ -19,7 +19,7 @@ const twilioClient = twilio(process.env.TWILIO_API_KEY_SID, process.env.TWILIO_A
   accountSid: process.env.TWILIO_ACCOUNT_SID,
 });
 
-// app.all('/token', authMiddleware, tokenEndpoint);
+// NOTE - we probably dont need this!
 // app.all('/recordingrules', authMiddleware, recordingRulesEndpoint);
 
 const findOrCreateRoom = async roomName => {
@@ -32,7 +32,7 @@ const findOrCreateRoom = async roomName => {
     if (error.code === 20404) {
       await twilioClient.video.rooms.create({
         uniqueName: roomName,
-        type: 'go',
+        type: 'group',
       });
     } else {
       // let other errors bubble up
